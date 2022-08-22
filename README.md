@@ -2,6 +2,14 @@
 
 Web3 ProviderEngine enhanced with TOR SOCKS5 proxy.
 
+### Simple TOR SOCKS5 proxy
+The super easy way to setup a Tor SOCKS5 proxy server inside a Docker container.
+Setup the proxy server at the first time:
+
+```sh
+docker run -d --restart=always --name tor-socks-proxy -p 127.0.0.1:9150:9150/tcp peterdavehello/tor-socks-proxy:latest
+```
+
 ### Composable
 
 Built to be modular - works via a stack of 'sub-providers' which are like normal web3 providers but only handle a subset of rpc methods.
