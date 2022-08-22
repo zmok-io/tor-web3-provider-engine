@@ -1,8 +1,6 @@
-# Web3 ProviderEngine
+# TOR Web3 ProviderEngine
 
-Web3 ProviderEngine is a tool for composing your own [web3 providers](https://github.com/ethereum/wiki/wiki/JavaScript-API#web3).
-
-<table><tr><td><p align="center"><b>⚠️ PLEASE READ ⚠️</b></p><div align="center">This package was originally created for MetaMask and is being phased out in favor of <a href="https://www.npmjs.com/package/json-rpc-engine"><code>json-rpc-engine</code></a> and <a href="https://www.npmjs.com/package/eth-json-rpc-middleware"><code>eth-json-rpc-middleware</code></a>. As such, we will no longer be accepting changes to this package except those which address security issues.</div></td></tr></table>
+Web3 ProviderEngine enhanced with TOR SOCKS5 proxy.
 
 ### Composable
 
@@ -20,6 +18,7 @@ const VmSubprovider = require('web3-provider-engine/subproviders/vm.js')
 const HookedWalletSubprovider = require('web3-provider-engine/subproviders/hooked-wallet.js')
 const NonceSubprovider = require('web3-provider-engine/subproviders/nonce-tracker.js')
 const RpcSubprovider = require('web3-provider-engine/subproviders/rpc.js')
+const TorRpcSubprovider = require('web3-provider-engine/subproviders/tor.js')
 
 var engine = new ProviderEngine()
 var web3 = new Web3(engine)
@@ -52,9 +51,10 @@ engine.addProvider(new HookedWalletSubprovider({
   signTransaction: function(cb){ ... },
 }))
 
-// data source
-engine.addProvider(new RpcSubprovider({
-  rpcUrl: 'https://testrpc.metamask.io/',
+// TOR RPC data source
+engine.addProvider(new TorRpcSubprovider({
+  rpcUrl: 'https://api.zmok.io/mainnet/YOUR-APP-ID',
+  torProxyUrl: 'socks5://127.0.0.1:9150'
 }))
 
 // log new blocks
@@ -77,7 +77,7 @@ engine.start()
 When importing in webpack:
 ```js
 import * as Web3ProviderEngine  from 'web3-provider-engine';
-import * as RpcSource  from 'web3-provider-engine/subproviders/rpc';
+import * as TorRpcSource  from 'web3-provider-engine/subproviders/tor';
 import * as HookedWalletSubprovider from 'web3-provider-engine/subproviders/hooked-wallet';
 ```
 
