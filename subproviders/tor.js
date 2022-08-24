@@ -5,7 +5,7 @@ const inherits = require('util').inherits
 const createPayload = require('../util/create-payload.js')
 const Subprovider = require('./subprovider.js')
 const { ethErrors, serializeError } = require('eth-rpc-errors')
-const { SocksProxyAgent } = require('socks-proxy-agent');
+const { SocksProxyAgent } = require('socks-proxy-agent')
 
 module.exports = TorRpcSource
 
@@ -28,21 +28,23 @@ TorRpcSource.prototype.handleRequest = function(payload, next, end){
 
 	const agent = new SocksProxyAgent(torProxyUrl)
 
-  axios({
-    httpAgent: agent,
-    httpsAgent: agent,
-		url:targetUrl,
+  const inst = axios.create({
+  	httpAgent: agent,
+  	httpsagent: agent
+  });
+
+  inst({
+		url: targetUrl,
     method:'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     },
-    timeout: 20000,
+    timeout: 60000,
     data: JSON.stringify(newPayload),
   })
   .then(function(res) {
     // console.log("res.status: " + res.status)
-    // console.log(res)
     // check for error code
     switch (res.status) {
       case 405:
