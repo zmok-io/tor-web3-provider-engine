@@ -61,8 +61,9 @@ engine.addProvider(new HookedWalletSubprovider({
 
 // TOR RPC data source
 engine.addProvider(new TorRpcSubprovider({
-  rpcUrl: 'https://api.zmok.io/mainnet/YOUR-APP-ID',
-  torProxyUrl: 'socks5://127.0.0.1:9150'
+  // rpcUrl: 'http://api.zmok.io/mainnet/YOUR-APP-ID',
+  rpcUrl: 'http://zmok2uls65q5ceoxcarpjpa5hlpjxsmeqyapfy3l42ofklmrdbcs4cqd.onion/mainnet/YOUR-APP-ID',
+  torProxyUrl: 'socks5h://127.0.0.1:9150'
 }))
 
 // log new blocks
