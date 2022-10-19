@@ -2,8 +2,10 @@
 
 Web3 ProviderEngine enhanced with TOR SOCKS5 proxy.
 
-### Simple TOR SOCKS5 proxy
-The super easy way to setup a Tor SOCKS5 proxy server inside a Docker container.
+### TOR SOCKS5 proxy
+Use shared proxy: `socks5h://api.zmok.io:9150`
+
+Or better, run own proxy inside a Docker container.
 Setup the proxy server at the first time:
 
 ```sh
@@ -18,15 +20,15 @@ The subproviders can emit new rpc requests in order to handle their own;  e.g. `
 The provider engine also handles caching of rpc request results.
 
 ```js
-const ProviderEngine = require('web3-provider-engine')
-const CacheSubprovider = require('web3-provider-engine/subproviders/cache.js')
-const FixtureSubprovider = require('web3-provider-engine/subproviders/fixture.js')
-const FilterSubprovider = require('web3-provider-engine/subproviders/filters.js')
-const VmSubprovider = require('web3-provider-engine/subproviders/vm.js')
-const HookedWalletSubprovider = require('web3-provider-engine/subproviders/hooked-wallet.js')
-const NonceSubprovider = require('web3-provider-engine/subproviders/nonce-tracker.js')
-const RpcSubprovider = require('web3-provider-engine/subproviders/rpc.js')
-const TorRpcSubprovider = require('web3-provider-engine/subproviders/tor.js')
+const ProviderEngine = require('tor-web3-provider-engine')
+const CacheSubprovider = require('tor-web3-provider-engine/subproviders/cache.js')
+const FixtureSubprovider = require('tor-web3-provider-engine/subproviders/fixture.js')
+const FilterSubprovider = require('tor-web3-provider-engine/subproviders/filters.js')
+const VmSubprovider = require('tor-web3-provider-engine/subproviders/vm.js')
+const HookedWalletSubprovider = require('tor-web3-provider-engine/subproviders/hooked-wallet.js')
+const NonceSubprovider = require('tor-web3-provider-engine/subproviders/nonce-tracker.js')
+const RpcSubprovider = require('tor-web3-provider-engine/subproviders/rpc.js')
+const TorRpcSubprovider = require('tor-web3-provider-engine/subproviders/tor.js')
 
 var engine = new ProviderEngine()
 var web3 = new Web3(engine)
@@ -63,7 +65,7 @@ engine.addProvider(new HookedWalletSubprovider({
 engine.addProvider(new TorRpcSubprovider({
   // rpcUrl: 'http://api.zmok.io/mainnet/YOUR-APP-ID',
   rpcUrl: 'http://zmok2uls65q5ceoxcarpjpa5hlpjxsmeqyapfy3l42ofklmrdbcs4cqd.onion/mainnet/YOUR-APP-ID',
-  torProxyUrl: 'socks5h://127.0.0.1:9150'
+  torProxyUrl: 'socks5h://api.zmok.io:9150'
 }))
 
 // log new blocks
@@ -85,9 +87,9 @@ engine.start()
 
 When importing in webpack:
 ```js
-import * as Web3ProviderEngine  from 'web3-provider-engine';
-import * as TorRpcSource  from 'web3-provider-engine/subproviders/tor';
-import * as HookedWalletSubprovider from 'web3-provider-engine/subproviders/hooked-wallet';
+import * as Web3ProviderEngine  from 'tor-web3-provider-engine';
+import * as TorRpcSource  from 'tor-web3-provider-engine/subproviders/tor';
+import * as HookedWalletSubprovider from 'tor-web3-provider-engine/subproviders/hooked-wallet';
 ```
 
 ### Built For Zero-Clients
